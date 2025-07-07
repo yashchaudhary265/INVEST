@@ -9,7 +9,7 @@ const DataDashboard = () => {
   useEffect(() => {
     const fetchAllData = async () => {
   try {
-    const res = await axios.get('/api/summary/all-data');
+    const res = await axios.get('https://invest-cy9o.onrender.com/api/summary/all-data');
     setEntrepreneurs(res.data.entrepreneurs || []);
     setIdeas(res.data.ideas || []);
     setInvestors(res.data.investors || []);
