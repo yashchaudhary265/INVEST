@@ -10,23 +10,24 @@ const Login = () => {
   e.preventDefault();
   try {
     const res = await fetch('https://invest-cy9o.onrender.com/api/auth/login', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ email, password }),
-});
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
 
+    const data = await res.json(); // ✅ ADD THIS LINE
 
-
-    if (res.ok && data) {
-      navigate('/dashboard');
+    if (res.ok) {
+      navigate('/dashboard'); // you can use data if needed
     } else {
-      alert("Invalid credentials");
+      alert(data.error || "Invalid credentials");
     }
   } catch (error) {
     console.error("Login error:", error);
     alert("Something went wrong");
   }
 };
+
 
 
 

@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
     password: ''
   });
@@ -23,7 +23,7 @@ const Register = () => {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    name: formData.username,
+    name: formData.name,
     email: formData.email,
     password: formData.password,
   }),
@@ -34,7 +34,8 @@ const Register = () => {
     if (res.ok) {
       navigate('/login');
     } else {
-      alert("Registration failed");
+        const data = await res.json();
+        alert(data.error || "Registration failed");
     }
   } catch (error) {
     console.error("Register error:", error);
@@ -122,14 +123,14 @@ const Register = () => {
             <div className="input-group">
               <input
                 type="text"
-                id="username"
-                name="username"
+                id="name"
+                name="name"
                 required
                 className="input-field"
-                value={formData.username}
+                value={formData.name}
                 onChange={handleChange}
               />
-              <label htmlFor="username">Username</label>
+              <label htmlFor="name">name</label>
               <div className="glow-line"></div>
             </div>
 
