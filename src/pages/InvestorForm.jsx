@@ -22,7 +22,7 @@ const InvestorForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://invest-cy9o.onrender.com/api/investors/proposals', formData);
+      await axios.post('https://invest-cy9o.onrender.com/api/investors/proposals', formData);
       setSubmitted(true);
     } catch (error) {
       console.error('Submission error:', error);
