@@ -897,14 +897,12 @@ p {
   box-shadow: 0 0 10px #00d4ff;
 }
 .container2 {
-  height: 100vh;
-  width: 100vw;
-  padding: 20px;
-  position: relative;
-  z-index: 10;
-  perspective: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem;
   overflow-y: auto;
-  padding-bottom: 100px;
+  max-height: 100vh;
 }
 
 

@@ -77,13 +77,14 @@ const DataDashboard = () => {
   return (
     <div>
       <div id="particles-js"></div>
-      <div className="container2">
+      <div className="container2" style={{ paddingBottom: '100px', overflowY: 'auto', maxHeight: '100vh' }}>
+
         <div className="form-box">
           <h2>📋 All Submissions Dashboard</h2>
         </div>
 
         <div className="form-box">
-          <h3>Entrepreneurs</h3>
+          <h2>Entrepreneurs</h2>
           {entrepreneurs.length > 0 ? (
             entrepreneurs.map((e, i) => (
               <div key={i} className="input-group">
@@ -96,7 +97,7 @@ const DataDashboard = () => {
         </div>
 
         <div className="form-box">
-          <h3>Ideas</h3>
+          <h2>Ideas</h2>
           {ideas.length > 0 ? (
             ideas.map((i, idx) => (
               <div key={idx} className="input-group">
@@ -109,7 +110,7 @@ const DataDashboard = () => {
         </div>
 
         <div className="form-box">
-          <h3>Investors</h3>
+          <h2>Investors</h2>
           {investors.length > 0 ? (
             investors.map((inv, i) => (
               <div key={i} className="input-group">
