@@ -153,13 +153,14 @@ const InvestorForm = () => {
 
               <div className="input-group">
                 <input
-                  type="text"
-                  name="investmentCapacity"
-                  required
-                  className="input-field"
-                  value={formData.investmentCapacity}
-                  onChange={handleChange}
-                />
+               type="number"           // ✅ changed
+               name="investmentCapacity"
+               required
+                className="input-field"
+                value={formData.investmentCapacity}
+                onChange={handleChange}
+              />
+
                 <label>Investment Capacity</label>
                 <div className="glow-line"></div>
               </div>
