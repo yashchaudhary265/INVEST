@@ -17,29 +17,29 @@ const Register = () => {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-  name: formData.username,  // ✅ convert key
-  email: formData.email,
-  password: formData.password
-})
+  e.preventDefault();
+  try {
+    const res = await fetch('https://invest-cy9o.onrender.com/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.username, // ✅ converted key
+        email: formData.email,
+        password: formData.password
+      })
+    });
 
-      });
-
-      if (res.ok) {
-        navigate('/login');
-      } else {
-        alert("Registration failed");
-      }
-    } catch (error) {
-      console.error("Register error:", error);
-      alert("Something went wrong");
+    if (res.ok) {
+      navigate('/login');
+    } else {
+      alert("Registration failed");
     }
-  };
+  } catch (error) {
+    console.error("Register error:", error);
+    alert("Something went wrong");
+  }
+};
+
 
   useEffect(() => {
   if (window.particlesJS) {

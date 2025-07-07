@@ -7,24 +7,26 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
+  e.preventDefault();
+  try {
+    const res = await fetch('https://invest-cy9o.onrender.com/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
 
-      if (res.ok) {
-        navigate('/Dashboard');
-      } else {
-        alert("Invalid credentials");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Something went wrong");
+    if (res.ok) {
+      navigate('/Dashboard');
+    } else {
+      alert("Invalid credentials");
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Something went wrong");
+  }
+};
+
+
 
   useEffect(() => {
     const script = document.createElement("script");

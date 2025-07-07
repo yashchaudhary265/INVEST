@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const PORT = process.env.PORT || 10000;
+
+
 
 const entrepreneurRoutes = require('./api/entrepreneurs/register');
 const investorRoutes = require('./api/investors/proposals');
@@ -10,7 +13,7 @@ const authRoutes = require('./api/auth/authRoutes');
 const summaryRoutes = require('./api/routes/summary'); 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+
 
 // Middleware
 app.use(cors());
