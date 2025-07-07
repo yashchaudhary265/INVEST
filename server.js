@@ -18,9 +18,10 @@ const app = express();
 // ✅ CORS Middleware
 app.use(cors({
   origin: [
-  'https://invest-6chltzzkm-interactive-resumes-projects.vercel.app',
+  'https://invest-jj6cpant7-interactive-resumes-projects.vercel.app/register',
   'https://invest-rose.vercel.app',
-  'https://invest-git-main-interactive-resumes-projects.vercel.app'
+  'https://invest-git-main-interactive-resumes-projects.vercel.app/register',
+  
 ],
 
   credentials: true
