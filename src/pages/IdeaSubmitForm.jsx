@@ -22,7 +22,7 @@ const IdeaSubmitForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-       await axios.post('http://localhost:5000/api/ideas/submit', formData);
+       await axios.post('http://invest-cy9o.onrender.com/api/ideas/submit', formData);
 
 
       setSubmitted(true);
