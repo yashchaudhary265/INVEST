@@ -3,16 +3,19 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 10000;
-
-
-
 const entrepreneurRoutes = require('./api/entrepreneurs/register');
 const investorRoutes = require('./api/investors/proposals');
 const ideaRoutes = require('./api/ideas/submit');
 const authRoutes = require('./api/auth/authRoutes');  
 const summaryRoutes = require('./api/routes/summary'); 
 
+dotenv.config();
+
 const app = express();
+
+
+// ✅ Must be before routes
+app.use(express.json());
 
 
 // ✅ CORS Middleware
