@@ -15,9 +15,16 @@ const summaryRoutes = require('./api/routes/summary');
 const app = express();
 
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// ✅ CORS Middleware
+app.use(cors({
+  origin: [
+  'https://invest-6chltzzkm-interactive-resumes-projects.vercel.app',
+  'https://invest-rose.vercel.app',
+  'https://invest-git-main-interactive-resumes-projects.vercel.app'
+],
+
+  credentials: true
+}));
 
 // Routes
 app.use('/api/entrepreneurs', entrepreneurRoutes);
