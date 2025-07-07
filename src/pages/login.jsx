@@ -1,43 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [message, setMessage] = useState('');
-
-  const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        'https://invest-cy9o.onrender.com/api/auth/login',
-        formData
-      );
+  e.preventDefault();
+  try {
+    const res = await fetch('https://invest-cy9o.onrender.com/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password }),
+});
 
-      const { role } = res.data;
-      if (role === 'admin') {
-        navigate('/admin-dashboard');
-      } else {
-        navigate('/dashboard'); // or '/user-home' if that's your route
-      }
-    } catch (err) {
-      console.error("Login error:", err.response?.data || err.message);
-      setMessage('Login failed');
+
+
+    if (res.ok && data) {
+      navigate('/dashboard');
+    } else {
+      alert("Invalid credentials");
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Something went wrong");
+  }
+};
 
- 
+
 
   useEffect(() => {
     const script = document.createElement("script");
