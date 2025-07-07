@@ -5,22 +5,21 @@ const Investor = require('../models/investor'); // Ensure path and casing is cor
 // POST /api/investors/proposals
 router.post('/proposals', async (req, res) => {
   try {
-    const { name, email, phone, investmentCapacity, sector } = req.body;
+    const { name, email, phone, investmentCapacity, sectorInterest } = req.body;
 
     // Validation
-    if (!name || !email || !phone || !investmentCapacity || !sector) {
+    if (!name || !email || !phone || !investmentCapacity || !sectorInterest) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
-    // Debug log
-    console.log('Investor Submission Received:', req.body);
+    console.log('💾 Saving:', { name, email, phone, investmentCapacity, sectorInterest });
 
     const newInvestor = new Investor({
       name,
       email,
       phone,
       investmentCapacity,
-      sector
+      sectorInterest
     });
 
     await newInvestor.save();
