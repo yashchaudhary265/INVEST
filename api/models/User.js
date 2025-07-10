@@ -1,3 +1,4 @@
+// api/models/User.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -54,4 +55,5 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-module.exports = mongoose.model('User', userSchema);
+// ✅ CORRECT: Use this pattern to prevent overwrite errors
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);

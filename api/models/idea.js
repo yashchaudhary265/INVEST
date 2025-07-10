@@ -1,47 +1,44 @@
+// api/models/idea.js
 const mongoose = require('mongoose');
 
-const investorSchema = new mongoose.Schema({
-  name: {
+const ideaSchema = new mongoose.Schema({
+  entrepreneurName: {
     type: String,
-    required: [true, 'Name is required'],
+    required: [true, 'Entrepreneur name is required'],
     trim: true,
     maxLength: [100, 'Name cannot exceed 100 characters']
+  },
+  ideaTitle: {
+    type: String,
+    required: [true, 'Idea title is required'],
+    trim: true,
+    maxLength: [200, 'Title cannot exceed 200 characters']
+  },
+  description: {
+    type: String,
+    required: [true, 'Description is required'],
+    maxLength: [2000, 'Description cannot exceed 2000 characters']
+  },
+  fundingNeeded: {
+    type: Number,
+    required: [true, 'Funding amount is required'],
+    min: [1000, 'Minimum funding amount is ₹1,000'],
+    max: [1000000000, 'Maximum funding amount is ₹100 crores']
   },
   email: {
     type: String,
     required: [true, 'Email is required'],
-    unique: true,
     lowercase: true,
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
   },
-  phone: {
+  status: {
     type: String,
-    required: [true, 'Phone number is required'],
-    match: [/^[0-9]{10}$/, 'Please enter a valid 10-digit phone number']
-  },
-  investmentCapacity: {
-    type: Number,
-    required: [true, 'Investment capacity is required'],
-    min: [10000, 'Minimum investment capacity is ₹10,000'],
-    max: [10000000000, 'Maximum investment capacity is ₹1000 crores']
-  },
-  sectorInterest: {
-    type: String,
-    required: [true, 'Sector interest is required'],
-    trim: true
-  },
-  investmentType: {
-    type: String,
-    enum: ['Angel', 'Seed', 'Series A', 'Series B', 'Growth', 'Any'],
-    default: 'Any'
-  },
-  riskTolerance: {
-    type: String,
-    enum: ['Low', 'Medium', 'High'],
-    default: 'Medium'
+    enum: ['Submitted', 'Under Review', 'Approved', 'Rejected'],
+    default: 'Submitted'
   }
 }, {
   timestamps: true
 });
 
-module.exports = mongoose.model('Investor', investorSchema);
+// ✅ CORRECT: Use this pattern to prevent overwrite errors
+module.exports = mongoose.models.Idea || mongoose.model('Idea', ideaSchema);

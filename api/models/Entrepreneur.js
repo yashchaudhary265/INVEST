@@ -38,4 +38,5 @@ const entrepreneurSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Entrepreneur', entrepreneurSchema);
+// Use this pattern to prevent overwrite errors
+module.exports = mongoose.models.Entrepreneur || mongoose.model('Entrepreneur', entrepreneurSchema);
