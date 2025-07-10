@@ -1,104 +1,105 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import useParticles from './useParticles';
 
 const InvestorForm = () => {
+  useParticles();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     investmentCapacity: '',
-    sectorInterest: ''
+    sectorInterest: '',
+    investmentType: '',
+    riskTolerance: ''
   });
 
+  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+    else if (!/^[0-9]{10}$/.test(formData.phone.replace(/\D/g, ''))) {
+      newErrors.phone = 'Please enter a valid 10-digit phone number';
+    }
+    
+    if (!formData.sectorInterest.trim()) newErrors.sectorInterest = 'Sector interest is required';
+    
+    if (!formData.investmentCapacity) newErrors.investmentCapacity = 'Investment capacity is required';
+    else {
+      const amount = parseFloat(formData.investmentCapacity);
+      if (isNaN(amount) || amount < 10000) {
+        newErrors.investmentCapacity = 'Minimum investment capacity is ₹10,000';
+      } else if (amount > 10000000000) {
+        newErrors.investmentCapacity = 'Maximum investment capacity is ₹1000 crores';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!validateForm()) return;
+
+    setLoading(true);
     try {
-      await axios.post('https://invest-cy9o.onrender.com/api/investors/proposals', formData);
+      const submissionData = {
+        ...formData,
+        phone: formData.phone.replace(/\D/g, ''),
+        investmentCapacity: parseFloat(formData.investmentCapacity)
+      };
+
+      await axios.post('https://invest-cy9o.onrender.com/api/investors/proposals', submissionData);
       setSubmitted(true);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        investmentCapacity: '',
+        sectorInterest: '',
+        investmentType: '',
+        riskTolerance: ''
+      });
     } catch (error) {
       console.error('Submission error:', error);
+      if (error.response?.data?.message) {
+        setErrors({ submit: error.response.data.message });
+      } else {
+        setErrors({ submit: 'Failed to submit investor profile. Please try again.' });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js";
-    script.async = true;
-    script.onload = () => {
-      if (window.particlesJS) {
-        window.particlesJS('particles-js', {
-          particles: {
-            number: { value: 100, density: { enable: true, value_area: 800 } },
-            color: { value: "#00d4ff" },
-            shape: {
-              type: "circle",
-              stroke: { width: 0, color: "#000000" },
-              polygon: { nb_sides: 5 }
-            },
-            opacity: {
-              value: 0.8,
-              random: true,
-              anim: { enable: true, speed: 1, opacity_min: 0.4, sync: false }
-            },
-            size: {
-              value: 5,
-              random: true,
-              anim: { enable: true, speed: 2, size_min: 1, sync: false }
-            },
-            line_linked: {
-              enable: true,
-              distance: 150,
-              color: "#00d4ff",
-              opacity: 0.6,
-              width: 1.5
-            },
-            move: {
-              enable: true,
-              speed: 2,
-              direction: "none",
-              random: true,
-              straight: false,
-              out_mode: "out",
-              bounce: false,
-              attract: { enable: true, rotateX: 600, rotateY: 1200 }
-            }
-          },
-          interactivity: {
-            detect_on: "canvas",
-            events: {
-              onhover: { enable: true, mode: "repulse" },
-              onclick: { enable: true, mode: "push" },
-              resize: true
-            },
-            modes: {
-              grab: { distance: 400, line_linked: { opacity: 1 } },
-              bubble: {
-                distance: 400,
-                size: 40,
-                duration: 2,
-                opacity: 8,
-                speed: 3
-              },
-              repulse: { distance: 100, duration: 0.4 },
-              push: { particles_nb: 4 },
-              remove: { particles_nb: 2 }
-            }
-          },
-          retina_detect: true
-        });
-      }
-    };
-    document.body.appendChild(script);
-  }, []);
+  const formatCurrency = (value) => {
+    if (!value) return '';
+    const number = parseFloat(value);
+    if (isNaN(number)) return value;
+    return new Intl.NumberFormat('en-IN').format(number);
+  };
 
   return (
     <div>
@@ -109,20 +110,37 @@ const InvestorForm = () => {
           <p>Share your investment interests</p>
 
           {submitted ? (
-            <p className="text-green-400 text-center">Your investor details have been submitted successfully!</p>
+            <div style={{ textAlign: 'center', color: '#00ff88', marginTop: '20px' }}>
+              <h3>✅ Investor Profile Submitted!</h3>
+              <p>Thank you for joining our investor network. We'll match you with relevant investment opportunities.</p>
+              <button 
+                onClick={() => setSubmitted(false)} 
+                className="login-btn"
+                style={{ marginTop: '20px' }}
+              >
+                Update Profile
+              </button>
+            </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              {errors.submit && (
+                <div style={{ color: '#ff4444', textAlign: 'center', marginBottom: '20px' }}>
+                  {errors.submit}
+                </div>
+              )}
+
               <div className="input-group">
                 <input
                   type="text"
                   name="name"
                   required
-                  className="input-field"
+                  className={`input-field ${errors.name ? 'error' : ''}`}
                   value={formData.name}
                   onChange={handleChange}
                 />
-                <label>Your Name</label>
+                <label>Your Name *</label>
                 <div className="glow-line"></div>
+                {errors.name && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.name}</span>}
               </div>
 
               <div className="input-group">
@@ -130,12 +148,13 @@ const InvestorForm = () => {
                   type="email"
                   name="email"
                   required
-                  className="input-field"
+                  className={`input-field ${errors.email ? 'error' : ''}`}
                   value={formData.email}
                   onChange={handleChange}
                 />
-                <label>Your Email</label>
+                <label>Your Email *</label>
                 <div className="glow-line"></div>
+                {errors.email && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.email}</span>}
               </div>
 
               <div className="input-group">
@@ -143,26 +162,36 @@ const InvestorForm = () => {
                   type="tel"
                   name="phone"
                   required
-                  className="input-field"
+                  className={`input-field ${errors.phone ? 'error' : ''}`}
                   value={formData.phone}
                   onChange={handleChange}
+                  placeholder="10-digit mobile number"
                 />
-                <label>Phone</label>
+                <label>Phone *</label>
                 <div className="glow-line"></div>
+                {errors.phone && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.phone}</span>}
               </div>
 
               <div className="input-group">
                 <input
-               type="number"           // ✅ changed
-               name="investmentCapacity"
-               required
-                className="input-field"
-                value={formData.investmentCapacity}
-                onChange={handleChange}
-              />
-
-                <label>Investment Capacity</label>
+                  type="number"
+                  name="investmentCapacity"
+                  required
+                  className={`input-field ${errors.investmentCapacity ? 'error' : ''}`}
+                  value={formData.investmentCapacity}
+                  onChange={handleChange}
+                  min="10000"
+                  max="10000000000"
+                  placeholder="Enter amount in INR"
+                />
+                <label>Investment Capacity (₹) *</label>
                 <div className="glow-line"></div>
+                {errors.investmentCapacity && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.investmentCapacity}</span>}
+                {formData.investmentCapacity && (
+                  <small style={{ color: '#00d4ff', fontSize: '12px' }}>
+                    ₹{formatCurrency(formData.investmentCapacity)}
+                  </small>
+                )}
               </div>
 
               <div className="input-group">
@@ -170,16 +199,63 @@ const InvestorForm = () => {
                   type="text"
                   name="sectorInterest"
                   required
-                  className="input-field"
+                  className={`input-field ${errors.sectorInterest ? 'error' : ''}`}
                   value={formData.sectorInterest}
                   onChange={handleChange}
+                  placeholder="e.g., Technology, Healthcare, Finance"
                 />
-                <label>Sector of Interest</label>
+                <label>Sector of Interest *</label>
+                <div className="glow-line"></div>
+                {errors.sectorInterest && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.sectorInterest}</span>}
+              </div>
+
+              <div className="input-group">
+                <select
+                  name="investmentType"
+                  className="input-field"
+                  value={formData.investmentType}
+                  onChange={handleChange}
+                  style={{ 
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    color: '#fff',
+                    border: '1px solid rgba(0, 212, 255, 0.3)'
+                  }}
+                >
+                  <option value="">Select Investment Type</option>
+                  <option value="Angel">Angel Investment</option>
+                  <option value="Seed">Seed Funding</option>
+                  <option value="Series A">Series A</option>
+                  <option value="Series B">Series B</option>
+                  <option value="Growth">Growth Stage</option>
+                  <option value="Any">Any Stage</option>
+                </select>
+                <label>Preferred Investment Type</label>
                 <div className="glow-line"></div>
               </div>
 
-              <button type="submit" className="login-btn">
-                <span>SUBMIT</span>
+              <div className="input-group">
+                <select
+                  name="riskTolerance"
+                  className="input-field"
+                  value={formData.riskTolerance}
+                  onChange={handleChange}
+                  style={{ 
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    color: '#fff',
+                    border: '1px solid rgba(0, 212, 255, 0.3)'
+                  }}
+                >
+                  <option value="">Select Risk Tolerance</option>
+                  <option value="Low">Low Risk</option>
+                  <option value="Medium">Medium Risk</option>
+                  <option value="High">High Risk</option>
+                </select>
+                <label>Risk Tolerance</label>
+                <div className="glow-line"></div>
+              </div>
+
+              <button type="submit" className="login-btn" disabled={loading}>
+                <span>{loading ? 'SUBMITTING...' : 'SUBMIT'}</span>
                 <div className="btn-glow"></div>
               </button>
             </form>
