@@ -1,3 +1,4 @@
+// Updated InvestorForm.jsx - Replace your existing file
 import React, { useState } from 'react';
 import axios from 'axios';
 import useParticles from './useParticles';
@@ -118,7 +119,8 @@ const InvestorForm = () => {
                 className="login-btn"
                 style={{ marginTop: '20px' }}
               >
-                Update Profile
+                <span>Update Profile</span>
+                <div className="btn-glow"></div>
               </button>
             </div>
           ) : (
@@ -129,7 +131,7 @@ const InvestorForm = () => {
                 </div>
               )}
 
-              <div className="input-group">
+              <div className={`input-group ${formData.name ? 'filled' : ''}`}>
                 <input
                   type="text"
                   name="name"
@@ -137,13 +139,14 @@ const InvestorForm = () => {
                   className={`input-field ${errors.name ? 'error' : ''}`}
                   value={formData.name}
                   onChange={handleChange}
+                  placeholder=" "
                 />
                 <label>Your Name *</label>
                 <div className="glow-line"></div>
                 {errors.name && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.name}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.email ? 'filled' : ''}`}>
                 <input
                   type="email"
                   name="email"
@@ -151,13 +154,14 @@ const InvestorForm = () => {
                   className={`input-field ${errors.email ? 'error' : ''}`}
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder=" "
                 />
                 <label>Your Email *</label>
                 <div className="glow-line"></div>
                 {errors.email && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.email}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.phone ? 'filled' : ''}`}>
                 <input
                   type="tel"
                   name="phone"
@@ -165,14 +169,14 @@ const InvestorForm = () => {
                   className={`input-field ${errors.phone ? 'error' : ''}`}
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="10-digit mobile number"
+                  placeholder=" "
                 />
                 <label>Phone *</label>
                 <div className="glow-line"></div>
                 {errors.phone && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.phone}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.investmentCapacity ? 'filled' : ''}`}>
                 <input
                   type="number"
                   name="investmentCapacity"
@@ -182,7 +186,7 @@ const InvestorForm = () => {
                   onChange={handleChange}
                   min="10000"
                   max="10000000000"
-                  placeholder="Enter amount in INR"
+                  placeholder=" "
                 />
                 <label>Investment Capacity (₹) *</label>
                 <div className="glow-line"></div>
@@ -194,7 +198,7 @@ const InvestorForm = () => {
                 )}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.sectorInterest ? 'filled' : ''}`}>
                 <input
                   type="text"
                   name="sectorInterest"
@@ -202,24 +206,19 @@ const InvestorForm = () => {
                   className={`input-field ${errors.sectorInterest ? 'error' : ''}`}
                   value={formData.sectorInterest}
                   onChange={handleChange}
-                  placeholder="e.g., Technology, Healthcare, Finance"
+                  placeholder=" "
                 />
                 <label>Sector of Interest *</label>
                 <div className="glow-line"></div>
                 {errors.sectorInterest && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.sectorInterest}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.investmentType ? 'filled' : ''}`}>
                 <select
                   name="investmentType"
                   className="input-field"
                   value={formData.investmentType}
                   onChange={handleChange}
-                  style={{ 
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    color: '#fff',
-                    border: '1px solid rgba(0, 212, 255, 0.3)'
-                  }}
                 >
                   <option value="">Select Investment Type</option>
                   <option value="Angel">Angel Investment</option>
@@ -233,17 +232,12 @@ const InvestorForm = () => {
                 <div className="glow-line"></div>
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.riskTolerance ? 'filled' : ''}`}>
                 <select
                   name="riskTolerance"
                   className="input-field"
                   value={formData.riskTolerance}
                   onChange={handleChange}
-                  style={{ 
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    color: '#fff',
-                    border: '1px solid rgba(0, 212, 255, 0.3)'
-                  }}
                 >
                   <option value="">Select Risk Tolerance</option>
                   <option value="Low">Low Risk</option>

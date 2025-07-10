@@ -112,7 +112,8 @@ const IdeaSubmitForm = () => {
                 className="login-btn"
                 style={{ marginTop: '20px' }}
               >
-                Submit Another Idea
+                <span>Submit Another Idea</span>
+                <div className="btn-glow"></div>
               </button>
             </div>
           ) : (
@@ -123,7 +124,7 @@ const IdeaSubmitForm = () => {
                 </div>
               )}
 
-              <div className="input-group">
+              <div className={`input-group ${formData.entrepreneurName ? 'filled' : ''}`}>
                 <input
                   type="text"
                   name="entrepreneurName"
@@ -131,13 +132,14 @@ const IdeaSubmitForm = () => {
                   className={`input-field ${errors.entrepreneurName ? 'error' : ''}`}
                   value={formData.entrepreneurName}
                   onChange={handleChange}
+                  placeholder=" "
                 />
                 <label>Your Name *</label>
                 <div className="glow-line"></div>
                 {errors.entrepreneurName && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.entrepreneurName}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.ideaTitle ? 'filled' : ''}`}>
                 <input
                   type="text"
                   name="ideaTitle"
@@ -145,14 +147,14 @@ const IdeaSubmitForm = () => {
                   className={`input-field ${errors.ideaTitle ? 'error' : ''}`}
                   value={formData.ideaTitle}
                   onChange={handleChange}
-                  placeholder="Give your idea a catchy title"
+                  placeholder=" "
                 />
                 <label>Idea Title *</label>
                 <div className="glow-line"></div>
                 {errors.ideaTitle && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.ideaTitle}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.description ? 'filled' : ''}`}>
                 <textarea
                   name="description"
                   rows="4"
@@ -160,8 +162,8 @@ const IdeaSubmitForm = () => {
                   className={`input-field ${errors.description ? 'error' : ''}`}
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Describe your business idea, target market, and unique value proposition"
                   maxLength="2000"
+                  placeholder=" "
                 />
                 <label>Detailed Description *</label>
                 <div className="glow-line"></div>
@@ -171,7 +173,7 @@ const IdeaSubmitForm = () => {
                 </small>
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.fundingNeeded ? 'filled' : ''}`}>
                 <input
                   type="number"
                   name="fundingNeeded"
@@ -181,7 +183,7 @@ const IdeaSubmitForm = () => {
                   onChange={handleChange}
                   min="1000"
                   max="1000000000"
-                  placeholder="Enter amount in INR"
+                  placeholder=" "
                 />
                 <label>Funding Needed (₹) *</label>
                 <div className="glow-line"></div>
@@ -193,7 +195,7 @@ const IdeaSubmitForm = () => {
                 )}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.email ? 'filled' : ''}`}>
                 <input
                   type="email"
                   name="email"
@@ -201,6 +203,7 @@ const IdeaSubmitForm = () => {
                   className={`input-field ${errors.email ? 'error' : ''}`}
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder=" "
                 />
                 <label>Your Email *</label>
                 <div className="glow-line"></div>

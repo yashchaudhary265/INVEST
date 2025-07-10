@@ -3,7 +3,7 @@ import axios from 'axios';
 import useParticles from './useParticles';
 
 const EntrepreneurForm = () => {
-  useParticles(); // Use the custom hook
+  useParticles();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -46,7 +46,6 @@ const EntrepreneurForm = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -59,7 +58,6 @@ const EntrepreneurForm = () => {
 
     setLoading(true);
     try {
-      // Clean phone number - remove any non-digits
       const cleanedData = {
         ...formData,
         phone: formData.phone.replace(/\D/g, '')
@@ -104,7 +102,8 @@ const EntrepreneurForm = () => {
                 className="login-btn"
                 style={{ marginTop: '20px' }}
               >
-                Register Another
+                <span>Register Another</span>
+                <div className="btn-glow"></div>
               </button>
             </div>
           ) : (
@@ -115,7 +114,7 @@ const EntrepreneurForm = () => {
                 </div>
               )}
 
-              <div className="input-group">
+              <div className={`input-group ${formData.name ? 'filled' : ''}`}>
                 <input
                   type="text"
                   name="name"
@@ -123,13 +122,14 @@ const EntrepreneurForm = () => {
                   className={`input-field ${errors.name ? 'error' : ''}`}
                   value={formData.name}
                   onChange={handleChange}
+                  placeholder=" "
                 />
                 <label>Full Name *</label>
                 <div className="glow-line"></div>
                 {errors.name && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.name}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.email ? 'filled' : ''}`}>
                 <input
                   type="email"
                   name="email"
@@ -137,13 +137,14 @@ const EntrepreneurForm = () => {
                   className={`input-field ${errors.email ? 'error' : ''}`}
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder=" "
                 />
                 <label>Email *</label>
                 <div className="glow-line"></div>
                 {errors.email && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.email}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.phone ? 'filled' : ''}`}>
                 <input
                   type="tel"
                   name="phone"
@@ -151,24 +152,19 @@ const EntrepreneurForm = () => {
                   className={`input-field ${errors.phone ? 'error' : ''}`}
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="10-digit mobile number"
+                  placeholder=" "
                 />
                 <label>Phone Number *</label>
                 <div className="glow-line"></div>
                 {errors.phone && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.phone}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.startupStage ? 'filled' : ''}`}>
                 <select
                   name="startupStage"
                   className={`input-field ${errors.startupStage ? 'error' : ''}`}
                   value={formData.startupStage}
                   onChange={handleChange}
-                  style={{ 
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    color: '#fff',
-                    border: '1px solid rgba(0, 212, 255, 0.3)'
-                  }}
                 >
                   <option value="">Select Startup Stage</option>
                   <option value="Idea Stage">Idea Stage</option>
@@ -183,7 +179,7 @@ const EntrepreneurForm = () => {
                 {errors.startupStage && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.startupStage}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.sector ? 'filled' : ''}`}>
                 <input
                   type="text"
                   name="sector"
@@ -191,22 +187,22 @@ const EntrepreneurForm = () => {
                   className={`input-field ${errors.sector ? 'error' : ''}`}
                   value={formData.sector}
                   onChange={handleChange}
-                  placeholder="e.g., Technology, Healthcare, Finance"
+                  placeholder=" "
                 />
                 <label>Sector *</label>
                 <div className="glow-line"></div>
                 {errors.sector && <span style={{ color: '#ff4444', fontSize: '12px' }}>{errors.sector}</span>}
               </div>
 
-              <div className="input-group">
+              <div className={`input-group ${formData.description ? 'filled' : ''}`}>
                 <textarea
                   name="description"
                   rows="3"
                   className={`input-field ${errors.description ? 'error' : ''}`}
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Brief description of your startup (optional)"
                   maxLength="1000"
+                  placeholder=" "
                 />
                 <label>Brief about your startup</label>
                 <div className="glow-line"></div>
