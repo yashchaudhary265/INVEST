@@ -935,3 +935,296 @@ textarea.input-field:valid + label {
     padding: 24px 20px;
   }
 }
+/* ADD THESE CSS FIXES TO YOUR index.css */
+
+/* ========== DASHBOARD COLOR FIXES ========== */
+.data-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-field strong {
+  color: #00d4ff !important;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.data-field span,
+.data-field div {
+  color: #fff !important;
+}
+
+/* Fix all text in dashboard to be visible */
+.form-box h3,
+.form-box p,
+.form-box div,
+.form-box span,
+.input-group div,
+.input-group p {
+  color: #fff !important;
+}
+
+/* Statistics cards text fix */
+.stat-card div,
+.stat-card strong {
+  color: #fff !important;
+}
+
+.stat-value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #00ff88 !important;
+  margin: 10px 0;
+}
+
+.stat-label {
+  color: #ccc !important;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Data cards text fix */
+.data-card div,
+.data-card span,
+.data-card p {
+  color: #fff !important;
+}
+
+.data-card-title {
+  color: #00ff88 !important;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.data-card-amount {
+  color: #00d4ff !important;
+  font-weight: bold;
+}
+
+/* Tab buttons fix */
+.tab-button {
+  padding: 12px 24px;
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  background: transparent;
+  color: #00d4ff !important;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, #00d4ff, #00ff88);
+  color: #000 !important;
+  box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Overview statistics grid fix */
+.input-group strong {
+  color: #00d4ff !important;
+}
+
+.input-group div {
+  color: #fff !important;
+}
+
+/* General text visibility fixes */
+.container2 p,
+.container2 div,
+.container2 span {
+  color: #fff !important;
+}
+
+/* ========== AUTH PAGES COLOR FIXES ========== */
+/* Remove purple colors and make consistent with theme */
+.auth-container a,
+.auth-box a {
+  color: #00d4ff !important; /* Changed from purple to cyan */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-container a:hover,
+.auth-box a:hover {
+  color: #00ff88 !important; /* Green hover effect */
+  text-decoration: underline;
+}
+
+/* Fix any remaining purple text */
+.signup-link a {
+  color: #00d4ff !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+  position: relative;
+}
+
+.signup-link a:hover {
+  color: #00ff88 !important;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
+}
+
+.signup-link a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #00ff88;
+  transition: 0.3s;
+}
+
+.signup-link a:hover::after {
+  width: 100%;
+  box-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
+}
+
+/* Forgot password link fix */
+.forgot {
+  color: #00d4ff !important;
+  text-decoration: none;
+  transition: 0.3s;
+  position: relative;
+}
+
+.forgot:hover {
+  color: #00ff88 !important;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+}
+
+.forgot::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #00ff88;
+  transition: 0.3s;
+}
+
+.forgot:hover::after {
+  width: 100%;
+  box-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
+}
+
+/* Register link in login page */
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+  color: rgba(0, 212, 255, 0.7) !important;
+  font-size: 13px;
+}
+
+/* Remember me label */
+.remember label {
+  color: rgba(0, 212, 255, 0.8) !important;
+  font-size: 13px;
+}
+
+/* ========== DASHBOARD SEARCH BAR FIX ========== */
+.search-input::placeholder {
+  color: #888 !important;
+}
+
+/* ========== LOADING AND ERROR STATES ========== */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888 !important;
+}
+
+.empty-state-text {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #ccc !important;
+}
+
+.empty-state-subtext {
+  font-size: 0.9em;
+  opacity: 0.7;
+  color: #999 !important;
+}
+
+/* Debug info text */
+.form-box h4 {
+  color: #00d4ff !important;
+}
+
+/* ========== FORCE VISIBILITY FOR ALL DASHBOARD TEXT ========== */
+.container2 * {
+  color: inherit;
+}
+
+.container2 .form-box * {
+  color: #fff;
+}
+
+.container2 .form-box h2,
+.container2 .form-box h3 {
+  color: #00d4ff !important;
+}
+
+.container2 .form-box strong {
+  color: #00d4ff !important;
+}
+
+.container2 .form-box .stat-value {
+  color: #00ff88 !important;
+}
+
+/* Tab text visibility */
+.dashboard-tabs button {
+  color: #00d4ff !important;
+}
+
+.dashboard-tabs button.active {
+  color: #000 !important;
+}
+
+/* Small text elements */
+.container2 small {
+  color: #888 !important;
+}
+
+/* Currency values */
+.currency {
+  color: #00ff88 !important;
+  font-weight: bold;
+}
+
+/* ========== ADDITIONAL DASHBOARD FIXES ========== */
+/* Ensure all grid items are visible */
+.stats-grid div,
+.stats-grid span,
+.stats-grid strong {
+  color: #fff !important;
+}
+
+.data-card-grid div,
+.data-card-grid span,
+.data-card-grid strong {
+  color: #fff !important;
+}
+
+/* Grid header text */
+.data-card-header * {
+  color: #fff !important;
+}
+
+/* Character counters */
+.char-counter {
+  color: #888 !important;
+  font-size: 11px;
+  text-align: right;
+  margin-top: 5px;
+}
+
+/* Phone number formatting display */
+.data-field span,
+.input-group span {
+  color: #fff !important;
+}

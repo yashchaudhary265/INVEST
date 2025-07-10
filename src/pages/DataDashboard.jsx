@@ -49,9 +49,8 @@ const DataDashboard = () => {
         
         console.log('🔄 Fetching data from API...');
         
-        // Try the main endpoint
         const res = await axios.get('https://invest-cy9o.onrender.com/api/summary/all-data', {
-          timeout: 10000, // 10 second timeout
+          timeout: 10000,
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -92,14 +91,6 @@ const DataDashboard = () => {
       } catch (err) {
         console.error('❌ Error fetching data:', err);
         setError(`Failed to load data: ${err.message}`);
-        
-        // Try alternative endpoint or show cached data
-        try {
-          const testRes = await axios.get('https://invest-cy9o.onrender.com/api/summary/test');
-          console.log('📊 Test endpoint response:', testRes.data);
-        } catch (testErr) {
-          console.error('❌ Test endpoint also failed:', testErr);
-        }
       } finally {
         setLoading(false);
       }
@@ -134,8 +125,8 @@ const DataDashboard = () => {
         <div id="particles-js"></div>
         <div className="container2">
           <div className="form-box">
-            <h2>🔄 Loading Dashboard...</h2>
-            <p>Fetching the latest data from our servers...</p>
+            <h2 style={{ color: '#00d4ff' }}>🔄 Loading Dashboard...</h2>
+            <p style={{ color: '#fff' }}>Fetching the latest data from our servers...</p>
           </div>
         </div>
       </div>
@@ -148,14 +139,15 @@ const DataDashboard = () => {
         <div id="particles-js"></div>
         <div className="container2">
           <div className="form-box">
-            <h2>❌ Error Loading Data</h2>
+            <h2 style={{ color: '#ff4444' }}>❌ Error Loading Data</h2>
             <p style={{ color: '#ff4444' }}>{error}</p>
             <button 
               onClick={() => window.location.reload()} 
               className="login-btn"
               style={{ marginTop: '20px' }}
             >
-              Retry
+              <span>Retry</span>
+              <div className="btn-glow"></div>
             </button>
           </div>
         </div>
@@ -170,7 +162,7 @@ const DataDashboard = () => {
         
         {/* Header */}
         <div className="form-box">
-          <h2>📊 Investment Platform Dashboard</h2>
+          <h2 style={{ color: '#00d4ff' }}>📊 Investment Platform Dashboard</h2>
           <div style={{ marginTop: '20px' }}>
             <input
               type="text"
@@ -178,7 +170,12 @@ const DataDashboard = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="input-field"
-              style={{ width: '100%', marginBottom: '20px' }}
+              style={{ 
+                width: '100%', 
+                marginBottom: '20px',
+                color: '#fff',
+                backgroundColor: 'rgba(0, 0, 0, 0.8)'
+              }}
             />
           </div>
         </div>
@@ -198,7 +195,8 @@ const DataDashboard = () => {
                   border: `1px solid ${activeTab === tab ? '#00d4ff' : 'rgba(0, 212, 255, 0.5)'}`
                 }}
               >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                <span>{tab.charAt(0).toUpperCase() + tab.slice(1)}</span>
+                <div className="btn-glow"></div>
               </button>
             ))}
           </div>
@@ -207,31 +205,31 @@ const DataDashboard = () => {
         {/* Overview Tab */}
         {activeTab === 'overview' && (
           <div className="form-box">
-            <h3>📈 Platform Statistics</h3>
+            <h3 style={{ color: '#00d4ff' }}>📈 Platform Statistics</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
               <div className="input-group" style={{ textAlign: 'center', padding: '20px', border: '1px solid #00d4ff', borderRadius: '10px' }}>
-                <div style={{ fontSize: '2em', color: '#00ff88' }}>{stats.totalEntrepreneurs}</div>
-                <div><strong>Total Entrepreneurs</strong></div>
+                <div style={{ fontSize: '2em', color: '#00ff88', fontWeight: 'bold' }}>{stats.totalEntrepreneurs}</div>
+                <div style={{ color: '#fff', fontWeight: 'bold' }}>Total Entrepreneurs</div>
               </div>
               <div className="input-group" style={{ textAlign: 'center', padding: '20px', border: '1px solid #00d4ff', borderRadius: '10px' }}>
-                <div style={{ fontSize: '2em', color: '#00ff88' }}>{stats.totalIdeas}</div>
-                <div><strong>Business Ideas</strong></div>
+                <div style={{ fontSize: '2em', color: '#00ff88', fontWeight: 'bold' }}>{stats.totalIdeas}</div>
+                <div style={{ color: '#fff', fontWeight: 'bold' }}>Business Ideas</div>
               </div>
               <div className="input-group" style={{ textAlign: 'center', padding: '20px', border: '1px solid #00d4ff', borderRadius: '10px' }}>
-                <div style={{ fontSize: '2em', color: '#00ff88' }}>{stats.totalInvestors}</div>
-                <div><strong>Active Investors</strong></div>
+                <div style={{ fontSize: '2em', color: '#00ff88', fontWeight: 'bold' }}>{stats.totalInvestors}</div>
+                <div style={{ color: '#fff', fontWeight: 'bold' }}>Active Investors</div>
               </div>
               <div className="input-group" style={{ textAlign: 'center', padding: '20px', border: '1px solid #00d4ff', borderRadius: '10px' }}>
-                <div style={{ fontSize: '1.5em', color: '#00ff88' }}>{formatCurrency(stats.totalFundingRequested)}</div>
-                <div><strong>Total Funding Requested</strong></div>
+                <div style={{ fontSize: '1.5em', color: '#00ff88', fontWeight: 'bold' }}>{formatCurrency(stats.totalFundingRequested)}</div>
+                <div style={{ color: '#fff', fontWeight: 'bold' }}>Total Funding Requested</div>
               </div>
               <div className="input-group" style={{ textAlign: 'center', padding: '20px', border: '1px solid #00d4ff', borderRadius: '10px' }}>
-                <div style={{ fontSize: '1.5em', color: '#00ff88' }}>{formatCurrency(stats.totalInvestmentCapacity)}</div>
-                <div><strong>Total Investment Capacity</strong></div>
+                <div style={{ fontSize: '1.5em', color: '#00ff88', fontWeight: 'bold' }}>{formatCurrency(stats.totalInvestmentCapacity)}</div>
+                <div style={{ color: '#fff', fontWeight: 'bold' }}>Total Investment Capacity</div>
               </div>
               <div className="input-group" style={{ textAlign: 'center', padding: '20px', border: '1px solid #00d4ff', borderRadius: '10px' }}>
-                <div style={{ fontSize: '1.5em', color: '#00ff88' }}>{formatCurrency(stats.averageFundingRequest)}</div>
-                <div><strong>Average Funding Request</strong></div>
+                <div style={{ fontSize: '1.5em', color: '#00ff88', fontWeight: 'bold' }}>{formatCurrency(stats.averageFundingRequest)}</div>
+                <div style={{ color: '#fff', fontWeight: 'bold' }}>Average Funding Request</div>
               </div>
             </div>
           </div>
@@ -240,28 +238,28 @@ const DataDashboard = () => {
         {/* Entrepreneurs Tab */}
         {activeTab === 'entrepreneurs' && (
           <div className="form-box">
-            <h3>👥 Entrepreneurs ({entrepreneurs.length})</h3>
+            <h3 style={{ color: '#00d4ff' }}>👥 Entrepreneurs ({entrepreneurs.length})</h3>
             {filterData(entrepreneurs, ['name', 'email', 'sector', 'startupStage']).length > 0 ? (
               <div style={{ display: 'grid', gap: '15px' }}>
                 {filterData(entrepreneurs, ['name', 'email', 'sector', 'startupStage']).map((e, i) => (
                   <div key={i} className="input-group" style={{ padding: '15px', border: '1px solid #00d4ff', borderRadius: '8px' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
-                      <div><strong>Name:</strong> {e.name}</div>
-                      <div><strong>Email:</strong> {e.email}</div>
-                      <div><strong>Phone:</strong> {formatPhone(e.phone)}</div>
-                      <div><strong>Sector:</strong> {e.sector || 'Not specified'}</div>
-                      <div><strong>Stage:</strong> {e.startupStage || 'Not specified'}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Name:</strong> {e.name}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Email:</strong> {e.email}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Phone:</strong> {formatPhone(e.phone)}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Sector:</strong> {e.sector || 'Not specified'}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Stage:</strong> {e.startupStage || 'Not specified'}</div>
                     </div>
                     {e.description && (
-                      <div style={{ marginTop: '10px' }}>
-                        <strong>Description:</strong> {e.description}
+                      <div style={{ marginTop: '10px', color: '#fff' }}>
+                        <strong style={{ color: '#00d4ff' }}>Description:</strong> {e.description}
                       </div>
                     )}
                   </div>
                 ))}
               </div>
             ) : (
-              <p>No entrepreneurs found matching your search.</p>
+              <p style={{ color: '#888' }}>No entrepreneurs found matching your search.</p>
             )}
           </div>
         )}
@@ -269,7 +267,7 @@ const DataDashboard = () => {
         {/* Ideas Tab */}
         {activeTab === 'ideas' && (
           <div className="form-box">
-            <h3>💡 Business Ideas ({ideas.length})</h3>
+            <h3 style={{ color: '#00d4ff' }}>💡 Business Ideas ({ideas.length})</h3>
             {filterData(ideas, ['ideaTitle', 'entrepreneurName', 'description']).length > 0 ? (
               <div style={{ display: 'grid', gap: '15px' }}>
                 {filterData(ideas, ['ideaTitle', 'entrepreneurName', 'description'])
@@ -277,21 +275,21 @@ const DataDashboard = () => {
                   .map((idea, i) => (
                   <div key={i} className="input-group" style={{ padding: '15px', border: '1px solid #00d4ff', borderRadius: '8px' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
-                      <div><strong>Title:</strong> {idea.ideaTitle}</div>
-                      <div><strong>Entrepreneur:</strong> {idea.entrepreneurName}</div>
-                      <div><strong>Email:</strong> {idea.email}</div>
-                      <div><strong>Funding Needed:</strong> {formatCurrency(idea.fundingNeeded)}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Title:</strong> {idea.ideaTitle}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Entrepreneur:</strong> {idea.entrepreneurName}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Email:</strong> {idea.email}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00ff88' }}>Funding Needed:</strong> <span style={{ color: '#00ff88', fontWeight: 'bold' }}>{formatCurrency(idea.fundingNeeded)}</span></div>
                     </div>
                     {idea.description && (
-                      <div style={{ marginTop: '10px' }}>
-                        <strong>Description:</strong> {idea.description}
+                      <div style={{ marginTop: '10px', color: '#fff' }}>
+                        <strong style={{ color: '#00d4ff' }}>Description:</strong> {idea.description}
                       </div>
                     )}
                   </div>
                 ))}
               </div>
             ) : (
-              <p>No ideas found matching your search.</p>
+              <p style={{ color: '#888' }}>No ideas found matching your search.</p>
             )}
           </div>
         )}
@@ -299,7 +297,7 @@ const DataDashboard = () => {
         {/* Investors Tab */}
         {activeTab === 'investors' && (
           <div className="form-box">
-            <h3>💰 Investors ({investors.length})</h3>
+            <h3 style={{ color: '#00d4ff' }}>💰 Investors ({investors.length})</h3>
             {filterData(investors, ['name', 'email', 'sectorInterest']).length > 0 ? (
               <div style={{ display: 'grid', gap: '15px' }}>
                 {filterData(investors, ['name', 'email', 'sectorInterest'])
@@ -307,30 +305,30 @@ const DataDashboard = () => {
                   .map((inv, i) => (
                   <div key={i} className="input-group" style={{ padding: '15px', border: '1px solid #00d4ff', borderRadius: '8px' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
-                      <div><strong>Name:</strong> {inv.name}</div>
-                      <div><strong>Email:</strong> {inv.email}</div>
-                      <div><strong>Phone:</strong> {formatPhone(inv.phone)}</div>
-                      <div><strong>Investment Capacity:</strong> {formatCurrency(inv.investmentCapacity)}</div>
-                      <div><strong>Sector Interest:</strong> {inv.sectorInterest}</div>
-                      {inv.investmentType && <div><strong>Investment Type:</strong> {inv.investmentType}</div>}
-                      {inv.riskTolerance && <div><strong>Risk Tolerance:</strong> {inv.riskTolerance}</div>}
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Name:</strong> {inv.name}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Email:</strong> {inv.email}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Phone:</strong> {formatPhone(inv.phone)}</div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00ff88' }}>Investment Capacity:</strong> <span style={{ color: '#00ff88', fontWeight: 'bold' }}>{formatCurrency(inv.investmentCapacity)}</span></div>
+                      <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Sector Interest:</strong> {inv.sectorInterest}</div>
+                      {inv.investmentType && <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Investment Type:</strong> {inv.investmentType}</div>}
+                      {inv.riskTolerance && <div style={{ color: '#fff' }}><strong style={{ color: '#00d4ff' }}>Risk Tolerance:</strong> {inv.riskTolerance}</div>}
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p>No investors found matching your search.</p>
+              <p style={{ color: '#888' }}>No investors found matching your search.</p>
             )}
           </div>
         )}
 
         {/* Debug Info */}
         {process.env.NODE_ENV === 'development' && (
-          <div className="form-box" style={{ marginTop: '20px', fontSize: '12px', color: '#888' }}>
-            <h4>🔧 Debug Info</h4>
-            <p>Entrepreneurs: {entrepreneurs.length} | Ideas: {ideas.length} | Investors: {investors.length}</p>
-            <p>Search Term: "{searchTerm}"</p>
-            <p>Active Tab: {activeTab}</p>
+          <div className="form-box" style={{ marginTop: '20px', fontSize: '12px' }}>
+            <h4 style={{ color: '#00d4ff' }}>🔧 Debug Info</h4>
+            <p style={{ color: '#fff' }}>Entrepreneurs: {entrepreneurs.length} | Ideas: {ideas.length} | Investors: {investors.length}</p>
+            <p style={{ color: '#fff' }}>Search Term: "{searchTerm}"</p>
+            <p style={{ color: '#fff' }}>Active Tab: {activeTab}</p>
           </div>
         )}
       </div>
