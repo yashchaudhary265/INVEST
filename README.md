@@ -8,13 +8,6 @@
 
 > A modern investment platform connecting entrepreneurs with investors, featuring real-time data visualization, comprehensive form validation, and a sleek cyberpunk-inspired UI.
 
-## 📸 Screenshots
-
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/dashboard-overview.png" alt="Dashboard Overview" width="45%">
-  <img src="https://github.com/user-attachments/assets/entrepreneur-form.png" alt="Entrepreneur Form" width="45%">
-</div>
-
 ## ✨ Features
 
 ### 🎯 Core Functionality
